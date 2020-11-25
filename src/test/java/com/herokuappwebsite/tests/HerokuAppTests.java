@@ -1,17 +1,15 @@
 package com.herokuappwebsite.tests;
 
-import com.herokuappwebsite.pages.ABTestingPage;
-import com.herokuappwebsite.pages.AddRemoveElementsPage;
-import com.herokuappwebsite.pages.BasicAuthPage;
-import com.herokuappwebsite.pages.FileUploaderPage;
+import com.herokuappwebsite.pages.*;
 import com.herokuappwebsite.utils.CommonUtils;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.herokuappwebsite.pages.AddRemoveElementsPage.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,8 +24,17 @@ public class HerokuAppTests {
     static void setup() {
         System.out.println("\nStarting HerokuAppTests...");
         System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver2.exe");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+
+        // chrome options that are necessary to setup for the fileDownloadTest
+        ChromeOptions options = new ChromeOptions();
+        Map<String, Object> prefs = new HashMap<>();
+        prefs.put("download.prompt_for_download", false);
+        prefs.put("download.default_directory", System.getProperty("user.dir") + "\\resources\\");
+        prefs.put("plugins.always_open_pdf_externally", true);
+        options.setExperimentalOption("prefs", prefs);
+        options.addArguments("start-maximized");
+
+        driver = new ChromeDriver(options);
     }
 
     @AfterAll
@@ -96,7 +103,8 @@ public class HerokuAppTests {
      * to upload (as text) into the form and then submit the form.
      */
     @Test
-    @DisplayName("Upload File")
+    @DisplayName("Upload File Test")
+    @Disabled
     void uploadFile() {
         System.out.println("uploadFile...");
         CommonUtils.openLink(driver, "File Upload");
@@ -112,6 +120,27 @@ public class HerokuAppTests {
         System.out.println("uploadFile ...");
     }
 
+    /**
+     * Level: Intermediate
+     * Just like with uploading files we hit the same issue with downloading them. A dialog box out
+     * of Selenium's reach. With some configuration when setting up the Selenium driver we can side-step the dialog box.
+     * This is done by instructing the browser to download files to a specific location without being prompted.
+     */
+    @Test
+    @DisplayName("Download File Test")
+    void downloadFileTest() throws InterruptedException {
+        System.out.println("downloadFileTest...");
+        CommonUtils.openLink(driver, "File Download");
+        FileDownloaderPage fileDownloaderPage = new FileDownloaderPage(driver);
+
+        // download file and assert it exists
+        assertTrue(fileDownloaderPage.downloadFile());
+
+        // cleanup - delete the downloaded file
+        assertTrue(fileDownloaderPage.deleteFile());
+
+        System.out.println("downloadFileTest ...");
+    }
 
     /**
      * Level: Intermediate
