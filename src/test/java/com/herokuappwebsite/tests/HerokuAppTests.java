@@ -3,10 +3,15 @@ package com.herokuappwebsite.tests;
 import com.herokuappwebsite.pages.ABTestingPage;
 import com.herokuappwebsite.pages.AddRemoveElementsPage;
 import com.herokuappwebsite.pages.BasicAuthPage;
+import com.herokuappwebsite.pages.FileUploaderPage;
 import com.herokuappwebsite.utils.CommonUtils;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import static com.herokuappwebsite.pages.AddRemoveElementsPage.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,6 +54,7 @@ public class HerokuAppTests {
     @DisplayName("Add/Remove Element Test")
     @Disabled
     void addRemoveElementTest() {
+        System.out.println("addRemoveElementTest...");
         // open to the desired link
         CommonUtils.openLink(driver, "Add/Remove Elements");
 
@@ -60,6 +66,7 @@ public class HerokuAppTests {
         // delete element and assert deleted
         addRemoveElementsPage.deleteElement();
         assertEquals("NoSuchElementException", checkIfDeleted(driver));
+        System.out.println("addRemoveElementTest ...");
     }
 
     /**
@@ -72,13 +79,39 @@ public class HerokuAppTests {
     @DisplayName("Basic Auth Test")
     @Disabled
     void basicAuthTest() {
+        System.out.println("basicAuthTest...");
         // send the username and password in the header to access the page
         driver.navigate().to("http://admin:admin@the-internet.herokuapp.com/basic_auth");
         BasicAuthPage basicAuthPage = new BasicAuthPage(driver);
         assertTrue(basicAuthPage.getPageText().contains(
                 "Congratulations! You must have the proper credentials"
         ));
+        System.out.println("basicAuthTest ...");
     }
+
+    /**
+     * Level: Beginner
+     * When trying to automate uploading a file you get prompted with a dialog box that is out of reach for Selenium.
+     * A work-around for this is to side-step the system dialog box by inserting the full path of the file we want
+     * to upload (as text) into the form and then submit the form.
+     */
+    @Test
+    @DisplayName("Upload File")
+    void uploadFile() {
+        System.out.println("uploadFile...");
+        CommonUtils.openLink(driver, "File Upload");
+        FileUploaderPage fileUploaderPage = new FileUploaderPage(driver);
+
+        File file = new File(".\\resources\\testfile.txt");
+        System.out.println("File to be uploaded: " + file.getName() +
+                " from path: " + file.getAbsolutePath());
+
+        // send the file's absolute path
+        assertEquals("testfile.txt", fileUploaderPage.uploadAFile(file.getAbsolutePath()));
+
+        System.out.println("uploadFile ...");
+    }
+
 
     /**
      * Level: Intermediate
@@ -88,7 +121,9 @@ public class HerokuAppTests {
      */
     @Test
     @DisplayName("A/B Testing")
+    @Disabled
     void abTest() {
+        System.out.println("abTest...");
         // open to the desired link
         CommonUtils.openLink(driver, "A/B Testing");
         ABTestingPage abTestingPage = new ABTestingPage(driver);
@@ -117,8 +152,9 @@ public class HerokuAppTests {
         // add optOut request to header and close alert opened
         abTestingPage.addOptOutRequest();
         assertEquals("No A/B Test", abTestingPage.getPagetitle());
+        System.out.println("abTest ...");
     }
 
-    
+
 
 }
