@@ -1,4 +1,4 @@
-package com.herokuappwebsite.pages;
+package com.herokuappwebsite.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
