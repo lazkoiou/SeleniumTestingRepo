@@ -105,8 +105,8 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Upload File Test")
     @Disabled
-    void uploadFile() {
-        System.out.println("uploadFile...");
+    void uploadFileTest() {
+        System.out.println("uploadFileTest...");
         CommonUtils.openLink(driver, "File Upload");
         FileUploaderPage fileUploaderPage = new FileUploaderPage(driver);
 
@@ -117,7 +117,27 @@ public class HerokuAppTests {
         // send the file's absolute path
         assertEquals("testfile.txt", fileUploaderPage.uploadAFile(file.getAbsolutePath()));
 
-        System.out.println("uploadFile ...");
+        System.out.println("uploadFileTest ...");
+    }
+
+    /**
+     * Level: Beginner
+     * Easily work with the elements in a frame by telling Selenium to switch to that frame first
+     */
+    @Test
+    @DisplayName("Nested Frames Test")
+    void nestedFramesTest() {
+        System.out.println("nestedFramesTest...");
+        CommonUtils.openLink(driver, "Nested Frames");
+        NestedFramesPage nestedFramesPage = new NestedFramesPage(driver);
+
+        // switch to each frame and verify the name
+        assertEquals("LEFT", nestedFramesPage.switchToTopFrames("frame-left"));
+        assertEquals("MIDDLE", nestedFramesPage.switchToTopFrames("frame-middle"));
+        assertEquals("RIGHT", nestedFramesPage.switchToTopFrames("frame-right"));
+        assertEquals("BOTTOM", nestedFramesPage.switchToBottomFrame("frame-bottom"));
+
+        System.out.println("nestedFramesTest ...");
     }
 
     /**
@@ -128,6 +148,7 @@ public class HerokuAppTests {
      */
     @Test
     @DisplayName("Download File Test")
+    @Disabled
     void downloadFileTest() throws InterruptedException {
         System.out.println("downloadFileTest...");
         CommonUtils.openLink(driver, "File Download");
