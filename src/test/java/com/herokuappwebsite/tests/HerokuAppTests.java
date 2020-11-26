@@ -126,6 +126,7 @@ public class HerokuAppTests {
      */
     @Test
     @DisplayName("Nested Frames Test")
+    @Disabled
     void nestedFramesTest() {
         System.out.println("nestedFramesTest...");
         CommonUtils.openLink(driver, "Nested Frames");
@@ -142,6 +143,33 @@ public class HerokuAppTests {
 
     /**
      * Level: Intermediate
+     * The application of testing opens a new window. In order to work with both the new and originating windows
+     * we need to switch between them. It is a straightforward concept, but watch out for that it might work
+     * in some browsers and not others.
+     */
+    @Test
+    @DisplayName("Multiple Windows Test")
+    @Disabled
+    void multipleWindowsTest() {
+        System.out.println("multipleWindowsTest...");
+        CommonUtils.openLink(driver, "Multiple Windows");
+        MultipleWindowsPage multipleWindowsPage = new MultipleWindowsPage(driver);
+
+        // save the initial window handle and open a new one
+        multipleWindowsPage.saveInitWindowHandle();
+        multipleWindowsPage.openWindow();
+
+        // select the new window and assert
+        assertEquals("New Window", multipleWindowsPage.selectNewlyOpenedWindow());
+
+        // select the initial window and assert
+        assertEquals("The Internet", multipleWindowsPage.selectInitWindow());
+
+        System.out.println("multipleWindowsTest ...");
+    }
+
+    /**
+     * Level: Intermediate
      * Just like with uploading files we hit the same issue with downloading them. A dialog box out
      * of Selenium's reach. With some configuration when setting up the Selenium driver we can side-step the dialog box.
      * This is done by instructing the browser to download files to a specific location without being prompted.
@@ -149,7 +177,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Download File Test")
     @Disabled
-    void downloadFileTest() throws InterruptedException {
+    void downloadFileTest() {
         System.out.println("downloadFileTest...");
         CommonUtils.openLink(driver, "File Download");
         FileDownloaderPage fileDownloaderPage = new FileDownloaderPage(driver);
