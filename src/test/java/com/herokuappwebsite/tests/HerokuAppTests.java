@@ -14,8 +14,8 @@ import java.util.Map;
 import static com.herokuappwebsite.pages.AddRemoveElementsPage.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-
-@DisplayName("Add Remove Elements Tests")
+@DisplayName("HerokuApp Tests")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class HerokuAppTests {
 
     public static WebDriver driver = null;
@@ -32,7 +32,7 @@ public class HerokuAppTests {
         prefs.put("download.default_directory", System.getProperty("user.dir") + "\\resources\\");
         prefs.put("plugins.always_open_pdf_externally", true);
         options.setExperimentalOption("prefs", prefs);
-        options.addArguments("start-maximized");
+        options.addArguments("start-maximized"); // "--headless", "--disable-gpu"
 
         driver = new ChromeDriver(options);
     }
@@ -59,6 +59,7 @@ public class HerokuAppTests {
      */
     @Test
     @DisplayName("Add/Remove Element Test")
+    @Order(1)
     @Disabled
     void addRemoveElementTest() {
         System.out.println("addRemoveElementTest...");
@@ -84,6 +85,7 @@ public class HerokuAppTests {
      */
     @Test
     @DisplayName("Basic Auth Test")
+    @Order(1)
     @Disabled
     void basicAuthTest() {
         System.out.println("basicAuthTest...");
@@ -104,6 +106,7 @@ public class HerokuAppTests {
      */
     @Test
     @DisplayName("Upload File Test")
+    @Order(1)
     @Disabled
     void uploadFileTest() {
         System.out.println("uploadFileTest...");
@@ -126,6 +129,7 @@ public class HerokuAppTests {
      */
     @Test
     @DisplayName("Nested Frames Test")
+    @Order(1)
     @Disabled
     void nestedFramesTest() {
         System.out.println("nestedFramesTest...");
@@ -142,6 +146,30 @@ public class HerokuAppTests {
     }
 
     /**
+     * Level: Beginner
+     * Grab the list by it's element and select an item within it based on the text you want.
+     * While it sounds pretty straightforward, there is a bit more finesse to it.
+     */
+    @Test
+    @DisplayName("Drop Down List Test")
+    @Order(1)
+    void dropDownListTest() {
+        System.out.println("dropDownListTest...");
+        CommonUtils.openLink(driver, "Dropdown");
+        DropdownPage dropdownPage = new DropdownPage(driver);
+
+        // 1st way - select option and assert
+        assertEquals("Option 1", dropdownPage.selectOptionByClick("Option 1"));
+        assertEquals("Option 2", dropdownPage.selectOptionByClick("Option 2"));
+
+        // 2nd way - select option and assert
+        assertEquals("Option 1", dropdownPage.selectOptionBySelect("1"));
+        assertEquals("Option 2", dropdownPage.selectOptionBySelect("2"));
+
+        System.out.println("dropDownListTest ...");
+    }
+
+    /**
      * Level: Intermediate
      * The application of testing opens a new window. In order to work with both the new and originating windows
      * we need to switch between them. It is a straightforward concept, but watch out for that it might work
@@ -149,6 +177,7 @@ public class HerokuAppTests {
      */
     @Test
     @DisplayName("Multiple Windows Test")
+    @Order(2)
     @Disabled
     void multipleWindowsTest() {
         System.out.println("multipleWindowsTest...");
@@ -176,6 +205,7 @@ public class HerokuAppTests {
      */
     @Test
     @DisplayName("Download File Test")
+    @Order(2)
     @Disabled
     void downloadFileTest() {
         System.out.println("downloadFileTest...");
@@ -199,6 +229,7 @@ public class HerokuAppTests {
      */
     @Test
     @DisplayName("A/B Testing")
+    @Order(2)
     @Disabled
     void abTest() {
         System.out.println("abTest...");
