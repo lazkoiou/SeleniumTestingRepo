@@ -1,10 +1,13 @@
 # SeleniumTestingRepo
-# Current Stack: Java 8, Maven, Selenium, JUnit5
-
 Aim of this project is to contain templates for various Selenium testing scenarios.
 
 The testing takes place at the websites:
 - https://the-internet.herokuapp.com/
+
+
+# Current Stack: 
+Java 8, Maven, Selenium, JUnit5
+
 
 # chromedriver
 latest update:            22-Nov-2020
