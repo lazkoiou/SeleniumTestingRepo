@@ -4,13 +4,11 @@ import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 /**
  * Class for the A/B Testing page
  */
 public class ABTestingPage extends BasePage{
-
 
     @FindBy(css = "#content > div > h3")
     private WebElement pageTitle;
@@ -44,13 +42,6 @@ public class ABTestingPage extends BasePage{
     public void addOptOutCookie() {
         Cookie optOutCookie = new Cookie("optimizelyOptOut", "true");
         driver.manage().addCookie(optOutCookie);
-    }
-
-    /**
-     * Refresh the page
-     */
-    public void refresh() {
-        driver.navigate().refresh();
     }
 
     /**

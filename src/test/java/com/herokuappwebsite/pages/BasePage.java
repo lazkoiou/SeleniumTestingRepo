@@ -13,4 +13,11 @@ public class BasePage {
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     * Refresh the page
+     */
+    public void refresh() {
+        driver.navigate().refresh();
+    }
+
 }

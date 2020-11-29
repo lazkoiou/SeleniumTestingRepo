@@ -2,7 +2,6 @@ package com.herokuappwebsite.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 
 /**
  * Class for the Nested Frames Page

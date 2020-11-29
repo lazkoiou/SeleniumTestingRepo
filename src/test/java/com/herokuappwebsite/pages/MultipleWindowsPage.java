@@ -3,7 +3,6 @@ package com.herokuappwebsite.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +13,6 @@ import java.util.Set;
 public class MultipleWindowsPage extends BasePage{
 
     private String initWindow = "";
-    private Set<String> windows = new HashSet<>();
 
     @FindBy(linkText = "Click Here")
     private WebElement openWindowElement;
@@ -39,7 +37,7 @@ public class MultipleWindowsPage extends BasePage{
 
     public String selectNewlyOpenedWindow() {
         // get all the windows
-        windows = driver.getWindowHandles();
+        Set<String> windows = driver.getWindowHandles();
 
         // find the newly opened window
         windows.forEach(window -> {

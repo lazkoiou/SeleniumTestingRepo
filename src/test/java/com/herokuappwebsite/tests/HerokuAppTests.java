@@ -63,7 +63,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Add/Remove Element Test")
     @Order(1)
-//    @Disabled
+    @Disabled
     void addRemoveElementTest() {
         System.out.println("addRemoveElementTest...");
         // open to the desired link
@@ -89,7 +89,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Basic Auth Test")
     @Order(1)
-//    @Disabled
+    @Disabled
     void basicAuthTest() {
         System.out.println("basicAuthTest...");
         // send the username and password in the header to access the page
@@ -110,7 +110,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Upload File Test")
     @Order(1)
-//    @Disabled
+    @Disabled
     void uploadFileTest() {
         System.out.println("uploadFileTest...");
         CommonUtils.openLink(driver, "File Upload");
@@ -133,7 +133,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Nested Frames Test")
     @Order(1)
-//    @Disabled
+    @Disabled
     void nestedFramesTest() {
         System.out.println("nestedFramesTest...");
         CommonUtils.openLink(driver, "Nested Frames");
@@ -156,7 +156,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Drop Down List Test")
     @Order(1)
-//    @Disabled
+    @Disabled
     void dropDownListTest() {
         System.out.println("dropDownListTest...");
         CommonUtils.openLink(driver, "Dropdown");
@@ -182,7 +182,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Multiple Windows Test")
     @Order(2)
-//    @Disabled
+    @Disabled
     void multipleWindowsTest() {
         System.out.println("multipleWindowsTest...");
         CommonUtils.openLink(driver, "Multiple Windows");
@@ -210,14 +210,17 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Download File Test")
     @Order(2)
-//    @Disabled
-    void downloadFileTest() {
+    @Disabled
+    void downloadFileTest() throws InterruptedException {
         System.out.println("downloadFileTest...");
         CommonUtils.openLink(driver, "File Download");
         FileDownloaderPage fileDownloaderPage = new FileDownloaderPage(driver);
 
         // download file and assert it exists
         assertTrue(fileDownloaderPage.downloadFile());
+
+        // giving it some time to visually confirm that the download is successful
+        Thread.sleep(300);
 
         // cleanup - delete the downloaded file
         assertTrue(fileDownloaderPage.deleteFile());
@@ -234,7 +237,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("A/B Testing")
     @Order(2)
-//    @Disabled
+    @Disabled
     void abTest() {
         System.out.println("abTest...");
         // open to the desired link
@@ -268,6 +271,28 @@ public class HerokuAppTests {
         System.out.println("abTest ...");
     }
 
+    /**
+     * Tests might occasionally fail when the application is dependent upon third-party service providers
+     * (e.g. payment providers, social networks, etc). Rather than have the tests fail for reasons that
+     * don't reflect an issue, we trigger a context specific retry for a specific set of actions (rather
+     * than the whole test) that will back-off after a few attempts.
+     *
+     * If it finds what it needs, the tests passes. If it doesn't, the test fails there is a legitimate problem
+     * in the application.
+     */
+    @Test
+    @DisplayName("Retry Actions Test")
+    @Order(2)
+//    @Disabled
+    public void retryActionsTest() {
+        System.out.println("retryActionsTest...");
+        CommonUtils.openLink(driver, "Notification Messages");
+        NotificationMessagesPage notificationMessagesPage = new NotificationMessagesPage(driver);
 
+        // retries up until maxTimes to check if the success notification appears
+        assertTrue(notificationMessagesPage.retryUntilSuccessOrMaxTimes(3));
+
+        System.out.println("retryActionsTest ...");
+    }
 
 }
