@@ -13,9 +13,7 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * Class for the Dropdown Page
  */
-public class DropdownPage {
-
-    private final WebDriver driver;
+public class DropdownPage extends BasePage{
 
     @FindBy(id = "dropdown")
     private WebElement dropdown;
@@ -30,8 +28,7 @@ public class DropdownPage {
      * @param driver: Webdriver
      */
     public DropdownPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     /**

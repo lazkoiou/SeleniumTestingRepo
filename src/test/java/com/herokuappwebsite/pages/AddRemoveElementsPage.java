@@ -9,9 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 /**
  * Class for Add/Remove Elements Page
  */
-public class AddRemoveElementsPage {
-
-    private final WebDriver driver;
+public class AddRemoveElementsPage extends BasePage{
 
     @FindBy(css = "#content > div > button")
     private WebElement createElementButton;
@@ -27,9 +25,7 @@ public class AddRemoveElementsPage {
      * @param driver: webdriver
      */
     public AddRemoveElementsPage (WebDriver driver) {
-        this.driver = driver;
-
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     /**

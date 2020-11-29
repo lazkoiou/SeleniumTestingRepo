@@ -7,17 +7,14 @@ import org.openqa.selenium.support.PageFactory;
 /**
  * Class for the Nested Frames Page
  */
-public class NestedFramesPage {
-
-    private final WebDriver driver;
+public class NestedFramesPage extends BasePage{
 
     /**
      * Constructor
      * @param driver: Webdriver
      */
     public NestedFramesPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     /**

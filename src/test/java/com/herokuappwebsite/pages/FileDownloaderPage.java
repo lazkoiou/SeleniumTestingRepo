@@ -12,20 +12,17 @@ import java.time.Duration;
 /**
  * Class for the File Downloader Page
  */
-public class FileDownloaderPage {
+public class FileDownloaderPage extends BasePage{
 
     @FindBy(linkText = "not_empty.txt")
     private WebElement fileToDownload;
-
-    private final WebDriver driver;
 
     /**
      * Constructor
      * @param driver: Webdriver
      */
     public FileDownloaderPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public boolean downloadFile() {

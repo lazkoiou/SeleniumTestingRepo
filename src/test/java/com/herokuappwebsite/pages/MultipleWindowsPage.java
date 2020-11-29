@@ -11,9 +11,8 @@ import java.util.Set;
 /**
  * Class for the Multiple Windows Page
  */
-public class MultipleWindowsPage {
+public class MultipleWindowsPage extends BasePage{
 
-    private final WebDriver driver;
     private String initWindow = "";
     private Set<String> windows = new HashSet<>();
 
@@ -21,8 +20,7 @@ public class MultipleWindowsPage {
     private WebElement openWindowElement;
 
     public MultipleWindowsPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     /**

@@ -10,9 +10,7 @@ import java.io.File;
 /**
  * Class for the File Uploader Page
  */
-public class FileUploaderPage {
-
-    private WebDriver driver;
+public class FileUploaderPage extends BasePage{
 
     @FindBy(id = "file-upload")
     private WebElement fileUpload;
@@ -24,9 +22,7 @@ public class FileUploaderPage {
     private WebElement uploadedFile;
 
     public FileUploaderPage(WebDriver driver) {
-        this.driver = driver;
-
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     /**

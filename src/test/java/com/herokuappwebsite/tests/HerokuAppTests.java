@@ -32,7 +32,10 @@ public class HerokuAppTests {
         prefs.put("download.default_directory", System.getProperty("user.dir") + "\\resources\\");
         prefs.put("plugins.always_open_pdf_externally", true);
         options.setExperimentalOption("prefs", prefs);
-        options.addArguments("start-maximized"); // "--headless", "--disable-gpu"
+        // if we need a faster run of the tests we addArguments
+        // "--headless", "--disable-gpu"
+        // to save resources
+        options.addArguments("start-maximized"); //
 
         driver = new ChromeDriver(options);
     }
@@ -60,7 +63,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Add/Remove Element Test")
     @Order(1)
-    @Disabled
+//    @Disabled
     void addRemoveElementTest() {
         System.out.println("addRemoveElementTest...");
         // open to the desired link
@@ -86,7 +89,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Basic Auth Test")
     @Order(1)
-    @Disabled
+//    @Disabled
     void basicAuthTest() {
         System.out.println("basicAuthTest...");
         // send the username and password in the header to access the page
@@ -107,7 +110,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Upload File Test")
     @Order(1)
-    @Disabled
+//    @Disabled
     void uploadFileTest() {
         System.out.println("uploadFileTest...");
         CommonUtils.openLink(driver, "File Upload");
@@ -130,7 +133,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Nested Frames Test")
     @Order(1)
-    @Disabled
+//    @Disabled
     void nestedFramesTest() {
         System.out.println("nestedFramesTest...");
         CommonUtils.openLink(driver, "Nested Frames");
@@ -153,6 +156,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Drop Down List Test")
     @Order(1)
+//    @Disabled
     void dropDownListTest() {
         System.out.println("dropDownListTest...");
         CommonUtils.openLink(driver, "Dropdown");
@@ -178,7 +182,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Multiple Windows Test")
     @Order(2)
-    @Disabled
+//    @Disabled
     void multipleWindowsTest() {
         System.out.println("multipleWindowsTest...");
         CommonUtils.openLink(driver, "Multiple Windows");
@@ -206,7 +210,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Download File Test")
     @Order(2)
-    @Disabled
+//    @Disabled
     void downloadFileTest() {
         System.out.println("downloadFileTest...");
         CommonUtils.openLink(driver, "File Download");
@@ -230,7 +234,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("A/B Testing")
     @Order(2)
-    @Disabled
+//    @Disabled
     void abTest() {
         System.out.println("abTest...");
         // open to the desired link

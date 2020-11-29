@@ -1,5 +1,5 @@
 # SeleniumTestingRepo
-Aim of this project is to contain templates for various Selenium testing scenarios.
+Aim of this project is to train and contain templates for various Selenium testing scenarios.
 
 The testing takes place at the websites:
 - https://the-internet.herokuapp.com/
@@ -10,6 +10,6 @@ Java 8, Maven, Selenium, JUnit5
 
 
 # chromedriver
-latest update:            22-Nov-2020
-version:                  ChromeDriver 86.0.4240.22
+latest update:            22-Nov-2020 <br/>
+version:                  ChromeDriver 86.0.4240.22 <br/>
 current Chrome version:   Version 87.0.4280.66 (Official Build) (64-bit)

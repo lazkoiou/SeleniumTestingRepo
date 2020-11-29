@@ -8,9 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 /**
  * Class for the Basic Auth Page
  */
-public class BasicAuthPage {
-
-    private final WebDriver driver;
+public class BasicAuthPage extends BasePage{
 
     @FindBy(css = "#content > div > p")
     private WebElement pageTextElement;
@@ -20,9 +18,7 @@ public class BasicAuthPage {
      * @param driver: webdriver
      */
     public BasicAuthPage(WebDriver driver) {
-        this.driver = driver;
-
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     /**

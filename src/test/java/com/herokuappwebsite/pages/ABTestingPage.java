@@ -9,9 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 /**
  * Class for the A/B Testing page
  */
-public class ABTestingPage {
+public class ABTestingPage extends BasePage{
 
-    private final WebDriver driver;
 
     @FindBy(css = "#content > div > h3")
     private WebElement pageTitle;
@@ -21,9 +20,7 @@ public class ABTestingPage {
      * @param driver: webdriver
      */
     public ABTestingPage(WebDriver driver) {
-        this.driver = driver;
-
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     /**
