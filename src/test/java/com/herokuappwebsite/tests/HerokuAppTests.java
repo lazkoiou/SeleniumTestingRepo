@@ -2,12 +2,21 @@ package com.herokuappwebsite.tests;
 
 import com.herokuappwebsite.pages.*;
 import com.herokuappwebsite.utils.CommonUtils;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -272,6 +281,8 @@ public class HerokuAppTests {
     }
 
     /**
+     * Level: Intermediate
+     * Retry Actions
      * Tests might occasionally fail when the application is dependent upon third-party service providers
      * (e.g. payment providers, social networks, etc). Rather than have the tests fail for reasons that
      * don't reflect an issue, we trigger a context specific retry for a specific set of actions (rather
@@ -283,7 +294,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Retry Actions Test")
     @Order(2)
-//    @Disabled
+    @Disabled
     public void retryActionsTest() {
         System.out.println("retryActionsTest...");
         CommonUtils.openLink(driver, "Notification Messages");
@@ -293,6 +304,32 @@ public class HerokuAppTests {
         assertTrue(notificationMessagesPage.retryUntilSuccessOrMaxTimes(3));
 
         System.out.println("retryActionsTest ...");
+    }
+
+    /**
+     *  Level: Intermediate
+     *  A simple way to gain insight into your test failures is to capture screenshots at the moment of failure.
+     */
+    @Test
+    @DisplayName("Take Screenshot If Failure Test")
+    @Order(2)
+    @Disabled
+    void takeScreenshotIfFailureTest() throws IOException {
+        System.out.println("takeScreenshotIfFailureTest...");
+
+        // Perform an operation that will fail in a try-catch block
+        try {
+            driver.findElement(By.id("I want this to fail!"));
+        }
+        catch (Exception e) {
+            // clean "screenshots" directory
+            CommonUtils.cleanDirectory(".\\screenshots");
+
+            // take screenshot and save it in "screenshots" folder
+            CommonUtils.getScreenshot(driver, ".\\screenshots\\failure_" + CommonUtils.getDateTime());
+        }
+
+        System.out.println("takeScreenshotIfFailureTest ...");
     }
 
 }

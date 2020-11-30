@@ -20,4 +20,9 @@ public class BasePage {
         driver.navigate().refresh();
     }
 
+    /**
+     * Gets the title of the page
+     * @return: String with the title
+     */
+    public String getTitle() { return driver.getTitle(); }
 }

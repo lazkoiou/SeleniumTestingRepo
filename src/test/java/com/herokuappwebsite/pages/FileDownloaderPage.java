@@ -24,6 +24,11 @@ public class FileDownloaderPage extends BasePage{
         super(driver);
     }
 
+    /**
+     * Downloads a file and saves it to the project's "resources" path
+     * The driver waits until the file actually exists in the filesystem
+     * @return: boolean which is true if the file has been downloaded
+     */
     public boolean downloadFile() {
         fileToDownload.click();
 
@@ -36,6 +41,10 @@ public class FileDownloaderPage extends BasePage{
         return file.exists();
     }
 
+    /**
+     * Performs the cleanup by deleting the file
+     * @return: true if delete operation is performed
+     */
     public boolean deleteFile() {
         File file = new File(".\\resources\\" + fileToDownload.getText());
         return file.delete();
