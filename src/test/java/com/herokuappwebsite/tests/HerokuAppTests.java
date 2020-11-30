@@ -2,26 +2,23 @@ package com.herokuappwebsite.tests;
 
 import com.herokuappwebsite.pages.*;
 import com.herokuappwebsite.utils.CommonUtils;
-import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.herokuappwebsite.pages.AddRemoveElementsPage.*;
 import static org.junit.jupiter.api.Assertions.*;
+
+// TODO: change chromedriver.exe and delete the other drivers
 
 @DisplayName("HerokuApp Tests")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -330,6 +327,32 @@ public class HerokuAppTests {
         }
 
         System.out.println("takeScreenshotIfFailureTest ...");
+    }
+
+    /**
+     *  Level: Intermediate
+     *  When a web application loads things dynamically use Explicit Waits
+     *  Specify a timeout and an action. Selenium will repeatedly try that action until it can either complete it
+     *  successfully or it will throw a timeout exception (causing the test to error)
+     */
+    @DisplayName("Dynamic Loaded Elements Test")
+    @Order(2)
+    @ParameterizedTest
+    @ValueSource(strings = { "Example 1", "Example 2"})
+//    @Disabled
+    void dynamicLoadedElementsTest(String exampleNumber) {
+        System.out.println("dynamicLoadedElementsTest " + exampleNumber + "...");
+        CommonUtils.openLink(driver, "Dynamic Loading");
+        DynamicLoadingPage dynamicLoadingPage = new DynamicLoadingPage(driver);
+
+        // click on "Example #" and click on "Start"
+        dynamicLoadingPage.startExample(exampleNumber);
+        dynamicLoadingPage.clickStartButton();
+
+        // get the text of the element when visible and assert
+        assertEquals("Hello World!", dynamicLoadingPage.getTextFromDynamicElement());
+
+        System.out.println("dynamicLoadedElementsTest ...");
     }
 
 }

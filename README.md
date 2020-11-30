@@ -1,5 +1,6 @@
 # SeleniumTestingRepo
-Aim of this project is to train and contain templates for various Selenium testing scenarios.
+Aim of this project is to train and create a list templates for various Selenium testing scenarios.
+Developed using the POM pattern.
 
 The testing takes place at the websites:
 - https://the-internet.herokuapp.com/
