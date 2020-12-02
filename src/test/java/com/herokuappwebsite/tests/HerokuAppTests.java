@@ -339,7 +339,7 @@ public class HerokuAppTests {
     @Order(2)
     @ParameterizedTest
     @ValueSource(strings = { "Example 1", "Example 2"})
-//    @Disabled
+    @Disabled
     void dynamicLoadedElementsTest(String exampleNumber) {
         System.out.println("dynamicLoadedElementsTest " + exampleNumber + "...");
         CommonUtils.openLink(driver, "Dynamic Loading");
@@ -353,6 +353,33 @@ public class HerokuAppTests {
         assertEquals("Hello World!", dynamicLoadingPage.getTextFromDynamicElement());
 
         System.out.println("dynamicLoadedElementsTest ...");
+    }
+
+    /**
+     * Level: Intermediate
+     * Easily traverse a table through the use of CSS Pseudo-classes
+     * CSS Pseudo-classes work by walking through the structure of an object and targeting a
+     * specific part of it based on a relative number.
+     */
+    @Test
+    @DisplayName("Table Data Test")
+    @Order(2)
+//    @Disabled
+    void tableDataTest() {
+        System.out.println("tableDataTest...");
+        CommonUtils.openLink(driver, "Sortable Data Tables");
+        SortedDataTablesPage sortedDataTablesPage = new SortedDataTablesPage(driver);
+
+        // assert that the data table is not sorted at the beginning
+        assertFalse(sortedDataTablesPage.checkIfDueSorted());
+
+        // click on "Due" to sort according to "Due" values
+        sortedDataTablesPage.clickOnDueToSortHead();
+
+        // assert it is sorted
+        assertTrue(sortedDataTablesPage.checkIfDueSorted());
+
+        System.out.println("tableDataTest ...");
     }
 
 }
