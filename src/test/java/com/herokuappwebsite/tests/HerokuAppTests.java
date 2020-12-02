@@ -29,7 +29,7 @@ public class HerokuAppTests {
     @BeforeAll
     static void setup() {
         System.out.println("\nStarting HerokuAppTests...");
-        System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver2.exe");
+        System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 
         // chrome options that are necessary to setup for the fileDownloadTest
         ChromeOptions options = new ChromeOptions();
