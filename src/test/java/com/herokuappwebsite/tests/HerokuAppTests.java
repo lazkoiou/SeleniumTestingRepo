@@ -18,7 +18,7 @@ import java.util.Map;
 import static com.herokuappwebsite.pages.AddRemoveElementsPage.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-// TODO: change chromedriver.exe and delete the other drivers
+// TODO: change system.out to a logger
 
 @DisplayName("HerokuApp Tests")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -364,7 +364,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Table Data Test")
     @Order(2)
-//    @Disabled
+    @Disabled
     void tableDataTest() {
         System.out.println("tableDataTest...");
         CommonUtils.openLink(driver, "Sortable Data Tables");
@@ -382,4 +382,30 @@ public class HerokuAppTests {
         System.out.println("tableDataTest ...");
     }
 
+    /**
+     * Level: Beginner
+     * By leveraging Selenium's Action Builder we can handle more complex user interactions like hovers.
+     * This is done by telling Selenium which element we want to move the mouse to, and then performing
+     * what we need to after.
+     */
+    @Test
+    @DisplayName("Hovers Test")
+    @Order(2)
+//    @Disabled
+    void HoverTest() {
+        System.out.println("HoverTest...");
+        CommonUtils.openLink(driver, "Hovers");
+        HoversPage hoversPage = new HoversPage(driver);
+
+        // assert by using a click
+        assertTrue(hoversPage.getCaptionByClicking());
+
+        // refresh to start over
+        hoversPage.refresh();
+
+        // assert by hover
+        assertTrue(hoversPage.getCaptionByAction());
+
+        System.out.println("HoverTest ...");
+    }
 }

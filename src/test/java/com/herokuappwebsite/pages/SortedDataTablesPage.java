@@ -8,13 +8,13 @@ import org.openqa.selenium.support.FindBy;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Class for the Sorted Data Tables Page
  */
 public class SortedDataTablesPage extends BasePage {
 
+    // using the CSS Pseudocode to access the table data elements
     @FindBy(css = "#table1 thead tr th:nth-of-type(4)")
     private WebElement dueHead;
 
