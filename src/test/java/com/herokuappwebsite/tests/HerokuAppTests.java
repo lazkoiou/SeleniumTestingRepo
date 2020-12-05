@@ -2,6 +2,8 @@ package com.herokuappwebsite.tests;
 
 import com.herokuappwebsite.pages.*;
 import com.herokuappwebsite.utils.CommonUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -18,17 +20,18 @@ import java.util.Map;
 import static com.herokuappwebsite.pages.AddRemoveElementsPage.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-// TODO: change system.out to a logger
+// TODO: move resources to the test folder and check that nothing is broken
 
 @DisplayName("HerokuApp Tests")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class HerokuAppTests {
 
+    private final static Logger logger = LogManager.getLogger(HerokuAppTests.class);
     public static WebDriver driver = null;
 
     @BeforeAll
     static void setup() {
-        System.out.println("\nStarting HerokuAppTests...");
+        logger.info("Starting HerokuAppTests...");
         System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 
         // chrome options that are necessary to setup for the fileDownloadTest
@@ -50,7 +53,7 @@ public class HerokuAppTests {
     static void tearDown() {
         driver.close();
         driver.quit();
-        System.out.println("\nFinished HerokuAppTests ...");
+        logger.info("Finished HerokuAppTests...\n");
     }
 
     @BeforeEach
@@ -71,7 +74,7 @@ public class HerokuAppTests {
     @Order(1)
     @Disabled
     void addRemoveElementTest() {
-        System.out.println("addRemoveElementTest...");
+        logger.info("addRemoveElement...");
         // open to the desired link
         CommonUtils.openLink(driver, "Add/Remove Elements");
 
@@ -83,7 +86,7 @@ public class HerokuAppTests {
         // delete element and assert deleted
         addRemoveElementsPage.deleteElement();
         assertEquals("NoSuchElementException", checkIfDeleted(driver));
-        System.out.println("addRemoveElementTest ...");
+        logger.info("addRemoveElementTest ...");
     }
 
     /**
@@ -97,14 +100,14 @@ public class HerokuAppTests {
     @Order(1)
     @Disabled
     void basicAuthTest() {
-        System.out.println("basicAuthTest...");
+        logger.info("basicAuthTest...");
         // send the username and password in the header to access the page
         driver.navigate().to("http://admin:admin@the-internet.herokuapp.com/basic_auth");
         BasicAuthPage basicAuthPage = new BasicAuthPage(driver);
         assertTrue(basicAuthPage.getPageText().contains(
                 "Congratulations! You must have the proper credentials"
         ));
-        System.out.println("basicAuthTest ...");
+        logger.info("basicAuthTest ...");
     }
 
     /**
@@ -118,7 +121,7 @@ public class HerokuAppTests {
     @Order(1)
     @Disabled
     void uploadFileTest() {
-        System.out.println("uploadFileTest...");
+        logger.info("uploadFileTest...");
         CommonUtils.openLink(driver, "File Upload");
         FileUploaderPage fileUploaderPage = new FileUploaderPage(driver);
 
@@ -129,7 +132,7 @@ public class HerokuAppTests {
         // send the file's absolute path
         assertEquals("testfile.txt", fileUploaderPage.uploadAFile(file.getAbsolutePath()));
 
-        System.out.println("uploadFileTest ...");
+        logger.info("uploadFileTest ...");
     }
 
     /**
@@ -141,7 +144,7 @@ public class HerokuAppTests {
     @Order(1)
     @Disabled
     void nestedFramesTest() {
-        System.out.println("nestedFramesTest...");
+        logger.info("nestedFramesTest...");
         CommonUtils.openLink(driver, "Nested Frames");
         NestedFramesPage nestedFramesPage = new NestedFramesPage(driver);
 
@@ -151,7 +154,7 @@ public class HerokuAppTests {
         assertEquals("RIGHT", nestedFramesPage.switchToTopFrames("frame-right"));
         assertEquals("BOTTOM", nestedFramesPage.switchToBottomFrame("frame-bottom"));
 
-        System.out.println("nestedFramesTest ...");
+        logger.info("nestedFramesTest ...");
     }
 
     /**
@@ -164,7 +167,7 @@ public class HerokuAppTests {
     @Order(1)
     @Disabled
     void dropDownListTest() {
-        System.out.println("dropDownListTest...");
+        logger.info("dropDownListTest...");
         CommonUtils.openLink(driver, "Dropdown");
         DropdownPage dropdownPage = new DropdownPage(driver);
 
@@ -176,7 +179,7 @@ public class HerokuAppTests {
         assertEquals("Option 1", dropdownPage.selectOptionBySelect("1"));
         assertEquals("Option 2", dropdownPage.selectOptionBySelect("2"));
 
-        System.out.println("dropDownListTest ...");
+        logger.info("dropDownListTest ...");
     }
 
     /**
@@ -190,7 +193,7 @@ public class HerokuAppTests {
     @Order(2)
     @Disabled
     void multipleWindowsTest() {
-        System.out.println("multipleWindowsTest...");
+        logger.info("multipleWindowsTest...");
         CommonUtils.openLink(driver, "Multiple Windows");
         MultipleWindowsPage multipleWindowsPage = new MultipleWindowsPage(driver);
 
@@ -204,7 +207,7 @@ public class HerokuAppTests {
         // select the initial window and assert
         assertEquals("The Internet", multipleWindowsPage.selectInitWindow());
 
-        System.out.println("multipleWindowsTest ...");
+        logger.info("multipleWindowsTest ...");
     }
 
     /**
@@ -218,7 +221,7 @@ public class HerokuAppTests {
     @Order(2)
     @Disabled
     void downloadFileTest() throws InterruptedException {
-        System.out.println("downloadFileTest...");
+        logger.info("downloadFileTest...");
         CommonUtils.openLink(driver, "File Download");
         FileDownloaderPage fileDownloaderPage = new FileDownloaderPage(driver);
 
@@ -231,7 +234,7 @@ public class HerokuAppTests {
         // cleanup - delete the downloaded file
         assertTrue(fileDownloaderPage.deleteFile());
 
-        System.out.println("downloadFileTest ...");
+        logger.info("downloadFileTest ...");
     }
 
     /**
@@ -245,7 +248,7 @@ public class HerokuAppTests {
     @Order(2)
     @Disabled
     void abTest() {
-        System.out.println("abTest...");
+        logger.info("abTest...");
         // open to the desired link
         CommonUtils.openLink(driver, "A/B Testing");
         ABTestingPage abTestingPage = new ABTestingPage(driver);
@@ -274,7 +277,7 @@ public class HerokuAppTests {
         // add optOut request to header and close alert opened
         abTestingPage.addOptOutRequest();
         assertEquals("No A/B Test", abTestingPage.getPagetitle());
-        System.out.println("abTest ...");
+        logger.info("abTest ...");
     }
 
     /**
@@ -293,14 +296,14 @@ public class HerokuAppTests {
     @Order(2)
     @Disabled
     public void retryActionsTest() {
-        System.out.println("retryActionsTest...");
+        logger.info("retryActionsTest...");
         CommonUtils.openLink(driver, "Notification Messages");
         NotificationMessagesPage notificationMessagesPage = new NotificationMessagesPage(driver);
 
         // retries up until maxTimes to check if the success notification appears
         assertTrue(notificationMessagesPage.retryUntilSuccessOrMaxTimes(3));
 
-        System.out.println("retryActionsTest ...");
+        logger.info("retryActionsTest ...");
     }
 
     /**
@@ -312,7 +315,7 @@ public class HerokuAppTests {
     @Order(2)
     @Disabled
     void takeScreenshotIfFailureTest() throws IOException {
-        System.out.println("takeScreenshotIfFailureTest...");
+        logger.info("takeScreenshotIfFailureTest...");
 
         // Perform an operation that will fail in a try-catch block
         try {
@@ -326,7 +329,7 @@ public class HerokuAppTests {
             CommonUtils.getScreenshot(driver, ".\\screenshots\\failure_" + CommonUtils.getDateTime());
         }
 
-        System.out.println("takeScreenshotIfFailureTest ...");
+        logger.info("takeScreenshotIfFailureTest ...");
     }
 
     /**
@@ -341,7 +344,7 @@ public class HerokuAppTests {
     @ValueSource(strings = { "Example 1", "Example 2"})
     @Disabled
     void dynamicLoadedElementsTest(String exampleNumber) {
-        System.out.println("dynamicLoadedElementsTest " + exampleNumber + "...");
+        logger.info("dynamicLoadedElementsTest " + exampleNumber + "...");
         CommonUtils.openLink(driver, "Dynamic Loading");
         DynamicLoadingPage dynamicLoadingPage = new DynamicLoadingPage(driver);
 
@@ -352,7 +355,7 @@ public class HerokuAppTests {
         // get the text of the element when visible and assert
         assertEquals("Hello World!", dynamicLoadingPage.getTextFromDynamicElement());
 
-        System.out.println("dynamicLoadedElementsTest ...");
+        logger.info("dynamicLoadedElementsTest ...");
     }
 
     /**
@@ -366,7 +369,7 @@ public class HerokuAppTests {
     @Order(2)
     @Disabled
     void tableDataTest() {
-        System.out.println("tableDataTest...");
+        logger.info("tableDataTest...");
         CommonUtils.openLink(driver, "Sortable Data Tables");
         SortedDataTablesPage sortedDataTablesPage = new SortedDataTablesPage(driver);
 
@@ -379,7 +382,7 @@ public class HerokuAppTests {
         // assert it is sorted
         assertTrue(sortedDataTablesPage.checkIfDueSorted());
 
-        System.out.println("tableDataTest ...");
+        logger.info("tableDataTest ...");
     }
 
     /**
@@ -393,7 +396,7 @@ public class HerokuAppTests {
     @Order(2)
 //    @Disabled
     void HoverTest() {
-        System.out.println("HoverTest...");
+        logger.info("HoverTest...");
         CommonUtils.openLink(driver, "Hovers");
         HoversPage hoversPage = new HoversPage(driver);
 
@@ -406,6 +409,6 @@ public class HerokuAppTests {
         // assert by hover
         assertTrue(hoversPage.getCaptionByAction());
 
-        System.out.println("HoverTest ...");
+        logger.info("HoverTest ...");
     }
 }

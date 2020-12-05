@@ -5,6 +5,7 @@ Developed using the POM pattern.
 The testing takes place at the websites:
 - https://the-internet.herokuapp.com/
 
+After each run a log file can found at logs/app.log
 
 # Current Stack: 
 Java 8, Maven, Selenium, JUnit5
