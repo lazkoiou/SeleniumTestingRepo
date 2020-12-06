@@ -20,8 +20,6 @@ import java.util.Map;
 import static com.herokuappwebsite.pages.AddRemoveElementsPage.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-// TODO: move resources to the test folder and check that nothing is broken
-
 @DisplayName("HerokuApp Tests")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class HerokuAppTests {
@@ -38,7 +36,7 @@ public class HerokuAppTests {
         ChromeOptions options = new ChromeOptions();
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("download.prompt_for_download", false);
-        prefs.put("download.default_directory", System.getProperty("user.dir") + "\\resources\\");
+        prefs.put("download.default_directory", System.getProperty("user.dir") + "\\src\\test\\resources\\");
         prefs.put("plugins.always_open_pdf_externally", true);
         options.setExperimentalOption("prefs", prefs);
         // if we need a faster run of the tests we addArguments
@@ -125,7 +123,7 @@ public class HerokuAppTests {
         CommonUtils.openLink(driver, "File Upload");
         FileUploaderPage fileUploaderPage = new FileUploaderPage(driver);
 
-        File file = new File(".\\resources\\testfile.txt");
+        File file = new File(".\\src\\test\\resources\\testfile.txt");
         System.out.println("File to be uploaded: " + file.getName() +
                 " from path: " + file.getAbsolutePath());
 
@@ -183,6 +181,53 @@ public class HerokuAppTests {
     }
 
     /**
+     * Level: Beginner
+     * By leveraging Selenium's Action Builder we can handle more complex user interactions like hovers.
+     * This is done by telling Selenium which element we want to move the mouse to, and then performing
+     * what we need to after.
+     */
+    @Test
+    @DisplayName("Hovers Test")
+    @Order(1)
+    @Disabled
+    void hoverTest() {
+        logger.info("hoverTest...");
+        CommonUtils.openLink(driver, "Hovers");
+        HoversPage hoversPage = new HoversPage(driver);
+
+        // assert by using a click
+        assertTrue(hoversPage.getCaptionByClicking());
+
+        // refresh to start over
+        hoversPage.refresh();
+
+        // assert by hover
+        assertTrue(hoversPage.getCaptionByAction());
+
+        logger.info("hoverTest ...");
+    }
+
+    /**
+     * Level: Beginner
+     * There are two ways to approach this -- by seeing if an element has a checked attribute
+     * (a.k.a. performing an attribute lookup), or by asking an element if it has been selected
+     */
+    @Test
+    @DisplayName("Checkboxes Test")
+    @Order(1)
+//    @Disabled
+    void checkboxesTest() {
+        logger.info("checkboxesTest...");
+        CommonUtils.openLink(driver, "Checkboxes");
+        CheckboxPage checkboxPage = new CheckboxPage(driver);
+
+        assertTrue(checkboxPage.selectCheckbox1());
+        assertFalse(checkboxPage.deselectCheckbox1());
+
+        logger.info("checkboxesTest ...");
+    }
+
+    /**
      * Level: Intermediate
      * The application of testing opens a new window. In order to work with both the new and originating windows
      * we need to switch between them. It is a straightforward concept, but watch out for that it might work
@@ -224,7 +269,7 @@ public class HerokuAppTests {
         logger.info("downloadFileTest...");
         CommonUtils.openLink(driver, "File Download");
         FileDownloaderPage fileDownloaderPage = new FileDownloaderPage(driver);
-
+        Thread.sleep(2000);
         // download file and assert it exists
         assertTrue(fileDownloaderPage.downloadFile());
 
@@ -385,30 +430,5 @@ public class HerokuAppTests {
         logger.info("tableDataTest ...");
     }
 
-    /**
-     * Level: Beginner
-     * By leveraging Selenium's Action Builder we can handle more complex user interactions like hovers.
-     * This is done by telling Selenium which element we want to move the mouse to, and then performing
-     * what we need to after.
-     */
-    @Test
-    @DisplayName("Hovers Test")
-    @Order(2)
-//    @Disabled
-    void HoverTest() {
-        logger.info("HoverTest...");
-        CommonUtils.openLink(driver, "Hovers");
-        HoversPage hoversPage = new HoversPage(driver);
 
-        // assert by using a click
-        assertTrue(hoversPage.getCaptionByClicking());
-
-        // refresh to start over
-        hoversPage.refresh();
-
-        // assert by hover
-        assertTrue(hoversPage.getCaptionByAction());
-
-        logger.info("HoverTest ...");
-    }
 }

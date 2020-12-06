@@ -13,7 +13,7 @@ import java.time.Duration;
  */
 public class FileDownloaderPage extends BasePage{
 
-    @FindBy(linkText = "not_empty.txt")
+    @FindBy(linkText = "some-file.txt")
     private WebElement fileToDownload;
 
     /**
@@ -32,7 +32,7 @@ public class FileDownloaderPage extends BasePage{
     public boolean downloadFile() {
         fileToDownload.click();
 
-        File file = new File(".\\resources\\" + fileToDownload.getText());
+        File file = new File(".\\src\\test\\resources\\" + fileToDownload.getText());
         FluentWait wait = new FluentWait(driver)
                 .withTimeout(Duration.ofSeconds(25))
                 .pollingEvery(Duration.ofMillis(100));
@@ -46,7 +46,7 @@ public class FileDownloaderPage extends BasePage{
      * @return: true if delete operation is performed
      */
     public boolean deleteFile() {
-        File file = new File(".\\resources\\" + fileToDownload.getText());
+        File file = new File(".\\src\\test\\resources\\" + fileToDownload.getText());
         return file.delete();
     }
 
