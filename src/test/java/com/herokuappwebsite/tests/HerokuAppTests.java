@@ -215,16 +215,45 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Checkboxes Test")
     @Order(1)
-//    @Disabled
+    @Disabled
     void checkboxesTest() {
         logger.info("checkboxesTest...");
         CommonUtils.openLink(driver, "Checkboxes");
         CheckboxPage checkboxPage = new CheckboxPage(driver);
 
+        // select, deselect checkboxes and assert
         assertTrue(checkboxPage.selectCheckbox1());
         assertFalse(checkboxPage.deselectCheckbox1());
 
         logger.info("checkboxesTest ...");
+    }
+
+    /**
+     * Level: Beginner
+     * Built into Selenium is the ability to switch to an alert window and either accept or dismiss it.
+     */
+    @Test
+    @DisplayName("JavaScript Alerts Test")
+    @Order(1)
+//    @Disabled
+    void javaScriptAlertsTest() {
+        logger.info("javaScriptAlertsTest...");
+        CommonUtils.openLink(driver, "JavaScript Alerts");
+        JavaScriptAlertsPage javaScriptAlertsPage = new JavaScriptAlertsPage(driver);
+
+        // click on the first alert button, accept and check result
+        javaScriptAlertsPage.clickForJSAlertAndAccept();
+        assertEquals("You successfuly clicked an alert", javaScriptAlertsPage.getResult());
+
+        // click on the second alert button, confirm and check result
+        javaScriptAlertsPage.clickForJSConfirmAndConfirm();
+        assertEquals("You clicked: Ok", javaScriptAlertsPage.getResult());
+
+        // click on the third alert button, type "Test" and check result
+        javaScriptAlertsPage.clickForJSPromptAndSubmit("Test");
+        assertEquals("You entered: Test", javaScriptAlertsPage.getResult());
+
+        logger.info("javaScriptAlertsTest ...");
     }
 
     /**
