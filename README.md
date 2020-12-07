@@ -7,6 +7,10 @@ The testing takes place at the websites:
 
 After each run a log file can found at logs/app.log
 
+To generate an HTML report run the tests with:
+
+<b><i>mvn clean test site</i></b>
+
 # Current Stack: 
 Java 8, Maven, Selenium, JUnit5
 
