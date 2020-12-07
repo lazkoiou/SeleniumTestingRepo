@@ -9,22 +9,42 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
-
+        <!-- This needs to be before selenium dependency, otherwise a different version of
+             guava is used and the error persists -->
+        <!-- Necessary for the fix of the deprecated wait.until in selenium -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>28.2-jre</version>
+        </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>3.141.59</version>
         </dependency>
+        <!-- maven dependencies -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+        </dependency>
+        <!-- Necessary for the html report-->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-report-plugin</artifactId>
+            <version>3.0.0-M5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-site-plugin</artifactId>
+            <version>3.9.1</version>
+        </dependency>
+        <!-- junit5 dependencies-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>5.6.1</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.1</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -38,7 +58,7 @@
             <version>5.6.1</version>
             <scope>test</scope>
         </dependency>
-
+        <!-- Necessary for logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
@@ -49,7 +69,6 @@
             <artifactId>log4j-core</artifactId>
             <version>2.8.2</version>
         </dependency>
-
 
     </dependencies>
 
@@ -71,6 +90,7 @@
                     </dependency>
                 </dependencies>
 
+                <!-- Tests to be run should be included here -->
                 <configuration>
                     <includes>
                         <include>com.herokuappwebsite.**</include>
@@ -87,9 +107,24 @@
                     <target>8</target>
                 </configuration>
             </plugin>
-
+            <!-- This is needed for the creation of the html reports-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.9.1</version>
+            </plugin>
         </plugins>
     </build>
 
+    <!-- Adding this will create html reports for the tests -->
+    <reporting>
+        <plugins>
+            <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <version>3.0.0-M5</version>
+            </plugin>
+        </plugins>
+    </reporting>
 
 </project>

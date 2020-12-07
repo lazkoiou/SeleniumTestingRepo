@@ -20,6 +20,10 @@ import java.util.Map;
 import static com.herokuappwebsite.pages.AddRemoveElementsPage.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+// TODO: check how to get selenium logs (selenium standalone server necessary)
+// TODO: check how to retry failed tests
+// TODO: add tag names so that you can avoid running test suites (like http://elementalselenium.com/tips/58-tagging)
+
 @DisplayName("HerokuApp Tests")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class HerokuAppTests {
