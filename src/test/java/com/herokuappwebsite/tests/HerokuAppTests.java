@@ -22,6 +22,7 @@ import java.util.Map;
 import static com.herokuappwebsite.pages.AddRemoveElementsPage.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+// TODO: create properites section in maven with the version variables
 // TODO: check how to get selenium logs (selenium standalone server necessary)
 // TODO: check how to retry failed tests
 // TODO: add tag names so that you can avoid running test suites (like http://elementalselenium.com/tips/58-tagging)
@@ -270,8 +271,8 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Keyboard Keys Test")
     @Order(1)
-//    @Disabled
-    void keyboardKeysTest() throws AWTException {
+    @Disabled
+    void keyboardKeysTest() throws AWTException, InterruptedException {
         logger.info("keyboardKeysTest...");
         CommonUtils.openLink(driver, "Key Presses");
         KeyPressesPage keyPressesPage = new KeyPressesPage(driver);
@@ -488,5 +489,27 @@ public class HerokuAppTests {
         logger.info("tableDataTest ...");
     }
 
+    /**
+     * Level: Advanced
+     * Highlight the elements to visually verify them
+     */
+    @Test
+    @DisplayName("Highlight Element Test")
+    @Order(3)
+//    @Disabled
+    void highlightElementTest() throws InterruptedException, AWTException {
+        logger.info("highlightElementTest...");
+        CommonUtils.openLink(driver, "Key Presses");
+        KeyPressesPage keyPressesPage = new KeyPressesPage(driver);
+
+        assertEquals(
+                "You entered: " + "ENTER",
+                keyPressesPage.pressKeyAndCheckResultHighlight(KeyEvent.VK_ENTER));
+        assertEquals(
+                "You entered: " + "CONTROL",
+                keyPressesPage.pressKeyAndCheckResultHighlight(KeyEvent.VK_CONTROL));
+
+        logger.info("highlightElementTest ...");
+    }
 
 }

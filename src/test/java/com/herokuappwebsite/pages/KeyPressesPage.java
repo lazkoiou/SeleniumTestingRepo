@@ -1,11 +1,11 @@
 package com.herokuappwebsite.pages;
 
+import com.herokuappwebsite.utils.AdvancedUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 /**
  * Class for the Key Presses Page
@@ -33,6 +33,24 @@ public class KeyPressesPage extends BasePage {
         Robot robot = new Robot();
         robot.keyPress(pressButton);
         robot.keyRelease(pressButton);
+
+        return result.getText();
+    }
+
+    /**
+     * USED FOR THE * highlightElementTest *
+     * Presses a button and returns a text result that states the button pressed
+     * @param pressButton: The button to be pressed
+     * @return: Text that states which button was pressed
+     * @throws AWTException:
+     */
+    public String pressKeyAndCheckResultHighlight(int pressButton) throws AWTException, InterruptedException {
+        Robot robot = new Robot();
+        robot.keyPress(pressButton);
+        robot.keyRelease(pressButton);
+
+        AdvancedUtils.highlight(driver, result, 2);
+
         return result.getText();
     }
 
