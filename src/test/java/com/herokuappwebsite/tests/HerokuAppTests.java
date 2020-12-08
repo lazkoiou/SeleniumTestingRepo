@@ -17,6 +17,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.herokuappwebsite.pages.AddRemoveElementsPage.*;
@@ -496,7 +497,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("Highlight Element Test")
     @Order(3)
-//    @Disabled
+    @Disabled
     void highlightElementTest() throws InterruptedException, AWTException {
         logger.info("highlightElementTest...");
         CommonUtils.openLink(driver, "Key Presses");
@@ -510,6 +511,29 @@ public class HerokuAppTests {
                 keyPressesPage.pressKeyAndCheckResultHighlight(KeyEvent.VK_CONTROL));
 
         logger.info("highlightElementTest ...");
+    }
+
+    /**
+     * Level: Advanced
+     */
+    @Test
+    @DisplayName("Broken Images Test")
+    @Order(3)
+//    @Disabled
+    void brokenImagesTest() {
+        logger.info("brokenImagesTest...");
+        CommonUtils.openLink(driver, "Broken Images");
+        BrokenImagesPage brokenImagesPage = new BrokenImagesPage(driver);
+
+        List<String> brokenImages = brokenImagesPage.searchForBrokenImages();
+
+        // we know that there are some broken images
+        assertFalse(brokenImages.isEmpty());
+
+        // print the names of the broken images
+        logger.warn("Broken Images: " + brokenImages);
+
+        logger.info("brokenImagesTest ...");
     }
 
 }

@@ -1,6 +1,6 @@
 package com.herokuappwebsite.pages;
 
-import com.herokuappwebsite.utils.AdvancedUtils;
+import com.herokuappwebsite.utils.JSFunctionUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -49,7 +49,7 @@ public class KeyPressesPage extends BasePage {
         robot.keyPress(pressButton);
         robot.keyRelease(pressButton);
 
-        AdvancedUtils.highlight(driver, result, 2);
+        JSFunctionUtils.highlight(driver, result, 2);
 
         return result.getText();
     }

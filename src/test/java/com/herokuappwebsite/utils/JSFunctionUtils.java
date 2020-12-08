@@ -4,12 +4,10 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import javax.print.attribute.Attribute;
-
 /**
- * Class which contains some advanced techniques
+ * Class which contains JS function utilities
  */
-public class AdvancedUtils {
+public class JSFunctionUtils {
 
     /**
      * Highlights an element with yellow background
@@ -41,4 +39,14 @@ public class AdvancedUtils {
             );
         }
     }
+
+    /**
+     * Checks if an image is broken
+     * @param image: WebElement that represents the image
+     * @return: boolean - true if image broken
+     */
+    public static boolean isImageBroken(WebElement image) {
+        return image.getAttribute("naturalWidth").equals("0");
+    }
+
 }
