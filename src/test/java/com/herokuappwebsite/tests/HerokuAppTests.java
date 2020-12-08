@@ -12,6 +12,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -239,7 +241,7 @@ public class HerokuAppTests {
     @Test
     @DisplayName("JavaScript Alerts Test")
     @Order(1)
-//    @Disabled
+    @Disabled
     void javaScriptAlertsTest() {
         logger.info("javaScriptAlertsTest...");
         CommonUtils.openLink(driver, "JavaScript Alerts");
@@ -259,6 +261,29 @@ public class HerokuAppTests {
 
         logger.info("javaScriptAlertsTest ...");
     }
+
+    /**
+     * Level: Beginner
+     * Apart from the .sendKeys function, there is another way to press keys.
+     * That is, by using the Robot class
+     */
+    @Test
+    @DisplayName("Keyboard Keys Test")
+    @Order(1)
+//    @Disabled
+    void keyboardKeysTest() throws AWTException {
+        logger.info("keyboardKeysTest...");
+        CommonUtils.openLink(driver, "Key Presses");
+        KeyPressesPage keyPressesPage = new KeyPressesPage(driver);
+
+        assertEquals("You entered: " + "ENTER", keyPressesPage.pressKeyAndCheckResult(KeyEvent.VK_ENTER));
+        assertEquals("You entered: " + "CONTROL", keyPressesPage.pressKeyAndCheckResult(KeyEvent.VK_CONTROL));
+        assertEquals("You entered: " + "A", keyPressesPage.pressKeyAndCheckResult(KeyEvent.VK_A));
+        assertEquals("You entered: " + "6", keyPressesPage.pressKeyAndCheckResult(KeyEvent.VK_6));
+
+        logger.info("keyboardKeysTest ...");
+    }
+
 
     /**
      * Level: Intermediate
